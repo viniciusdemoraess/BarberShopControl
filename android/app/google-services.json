@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1042676244261",
+    "project_id": "barbershopcontrol",
+    "storage_bucket": "barbershopcontrol.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042676244261:android:a42df2593fd212d5e004cc",
+        "android_client_info": {
+          "package_name": "com.vinicius.barber_shop_control"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042676244261-805bt1ofaj2nludigeafpi8lpg2urngs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVVHZ5HZyXk3rrDmSgZ19LqFRC6EgmKHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042676244261-805bt1ofaj2nludigeafpi8lpg2urngs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
