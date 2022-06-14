@@ -1,13 +1,17 @@
 import 'package:barber_shop_control/components/date_picker.dart';
 import 'package:barber_shop_control/dtos/attendance/attendance.dart';
 import 'package:barber_shop_control/dtos/func/func.dart';
+import 'package:barber_shop_control/dtos/user/user_local.dart';
 import 'package:barber_shop_control/services/attendance_service.dart';
 import 'package:barber_shop_control/services/func_service.dart';
+import 'package:barber_shop_control/services/user_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AttendanceAddScreen extends StatefulWidget {
-  const AttendanceAddScreen({Key? key}) : super(key: key);
+  final UserLocal? userLocal;
+
+  const AttendanceAddScreen({this.userLocal,Key? key}) : super(key: key);
 
   @override
   State<AttendanceAddScreen> createState() => _AttendanceAddScreenState();
@@ -192,7 +196,8 @@ class _AttendanceAddScreenState extends State<AttendanceAddScreen> {
                                       type: _selectedService,
                                       date: serviceDate,
                                       refFunc:
-                                          _selectedFunc); //,clientController.text , funcController.text
+                                          _selectedFunc,
+                                      refClient: widget.userLocal?.id); //,clientController.text , funcController.text
 
                                   service.add(attendance);
                                   Navigator.of(context).pop();

@@ -1,5 +1,5 @@
-import 'package:barber_shop_control/screens/attendance_screen/attendance_list_screen.dart';
 import 'package:barber_shop_control/screens/dashboard_screen/dashboard_screen.dart';
+import 'package:barber_shop_control/screens/home_screen/home_reserve.dart';
 import 'package:barber_shop_control/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    pageList.add(const AttendanceListScreen());
+    pageList.add(const HomeReserveScreen());
     pageList.add(const DashboardScreen());
     super.initState();
   }

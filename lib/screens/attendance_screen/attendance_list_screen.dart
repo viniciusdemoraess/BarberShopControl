@@ -1,12 +1,13 @@
-import 'package:barber_shop_control/dtos/func/func.dart';
+import 'package:barber_shop_control/dtos/user/user_local.dart';
+import 'package:barber_shop_control/screens/attendance_screen/attendance_add_screen.dart';
 import 'package:barber_shop_control/services/attendance_service.dart';
-import 'package:barber_shop_control/services/client_service.dart';
 import 'package:barber_shop_control/services/func_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AttendanceListScreen extends StatefulWidget {
-  const AttendanceListScreen({Key? key}) : super(key: key);
+  final UserLocal? userLocal;
+  const AttendanceListScreen({this.userLocal, Key? key}) : super(key: key);
 
   @override
   State<AttendanceListScreen> createState() => _AttendanceListScreenState();
@@ -19,62 +20,67 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
 
     String nameFun;
 
-    return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-          stream: attedanceService.getAttendanceList(),
-          builder: (BuildContext ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasData) {
-              List<DocumentSnapshot> docSnap = snapshot.data!.docs;
-              return Padding(
-                padding: const EdgeInsets.all(28.0),
-                child: ListView.separated(
-                  itemBuilder: (ctx, index) {
-                    FuncService funcService = FuncService();
-                    funcService
-                        .getById(docSnap[index].get('refFunc'))
-                        .then((value) {
-                      setState(() {
-                        nameFun = value;
-                      });
+    return StreamBuilder<QuerySnapshot>(
+        stream: attedanceService.getAttendanceList(),
+        builder: (BuildContext ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasData) {
+            List<DocumentSnapshot> docSnap = snapshot.data!.docs;
+            return Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: ListView.separated(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (ctx, index) {
+                  FuncService funcService = FuncService();
+                  funcService
+                      .getById(docSnap[index].get('refFunc'))
+                      .then((value) {
+                    setState(() {
+                      nameFun = value;
                     });
-
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FutureBuilder(
-                                future: funcService
-                                    .getById(docSnap[index].get('refFunc')),
-                                builder: (BuildContext context, AsyncSnapshot<String> text) {
-                                  return text.hasData ? Text(text.data!) : Container();
-                                }),
-                            // Text(nameFun),
-                            Text(docSnap[index].get('type').toString()),
-                            Text(docSnap[index].get('date').toString()),
-
-                          ],
+                  });
+              
+                  return Card(
+                    color: const Color.fromARGB(255, 202, 235, 248),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: FutureBuilder(
+                              future: funcService
+                                  .getById(docSnap[index].get('refFunc')),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<String> text) {
+                                return text.hasData
+                                    ? Text(text.data!)
+                                    : Container();
+                              }),
                         ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (ctx, index) {
-                    return const SizedBox(
-                      height: 5,
-                    );
-                  },
-                  itemCount: docSnap.length,
-                ),
-              );
-            } else {
-              return const Center(child: Text('Dados Indisponíveis!'));
-            }
-          }),
-    );
+                        // Text(nameFun),
+                        Expanded(
+                            child: Text(docSnap[index].get('type').toString())),
+                        Expanded(
+                            child: Text(docSnap[index].get('date').toString())),
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (ctx, index) {
+                  return const SizedBox(
+                    height: 5,
+                  );
+                },
+                itemCount: docSnap.length,
+              ),
+            );
+          } else {
+            return const Center(child: Text('Dados Indisponíveis!'));
+          }
+        });
   }
 }
