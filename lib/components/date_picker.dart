@@ -27,18 +27,24 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: TextFormField(
-        readOnly: true,
-        enabled: true,
-        validator: widget.validator,
-        decoration: inputDecoration(),
-        controller: dateController,
-        onTap: () {
-          _pickDate(context);
-        },
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const Expanded(child: Text('Data')),
+        Expanded(
+          child: TextFormField(
+            readOnly: true,
+            enabled: true,
+            validator: widget.validator,
+            // decoration: inputDecoration(),
+            controller: dateController,
+            onTap: () {
+              _pickDate(context);
+            },
+          ),
+        ),
+      ],
     );
   }
 

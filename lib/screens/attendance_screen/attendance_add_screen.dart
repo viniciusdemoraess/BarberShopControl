@@ -1,3 +1,4 @@
+import 'package:barber_shop_control/components/date_picker.dart';
 import 'package:barber_shop_control/dtos/attendance/attendance.dart';
 import 'package:barber_shop_control/dtos/func/func.dart';
 import 'package:barber_shop_control/services/attendance_service.dart';
@@ -22,6 +23,7 @@ class _AttendanceAddScreenState extends State<AttendanceAddScreen> {
   var _selectedFunc;
 
   var _selectedService;
+  late DateTime serviceDate;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -164,6 +166,21 @@ class _AttendanceAddScreenState extends State<AttendanceAddScreen> {
                           const SizedBox(
                             height: 15,
                           ),
+                          DatePicker(
+                            name: "Dia da reserva",
+                            onChanged: (date) {
+                              serviceDate = date;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Informe a data da reserva';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
@@ -173,6 +190,7 @@ class _AttendanceAddScreenState extends State<AttendanceAddScreen> {
                                       AttendanceService();
                                   Attendance attendance = Attendance(
                                       type: _selectedService,
+                                      date: serviceDate,
                                       refFunc:
                                           _selectedFunc); //,clientController.text , funcController.text
 

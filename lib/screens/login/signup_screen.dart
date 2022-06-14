@@ -94,13 +94,13 @@ class SignUpScreen extends StatelessWidget {
                         const InputDecoration(hintText: 'Repita a senha'),
                     // enabled: !userManager.loading,
                     obscureText: true,
-                    validator: (password) {
-                      if(password != user.password) {
-                        return 'Senhas não Coincidem!';
-                      }
-                      if (password!.isEmpty) {
+                    validator: (passwordConfirm) {
+                      // if(passwordConfirm != user.password) {
+                      //   return 'Senhas não Coincidem!';
+                      // }
+                      if (passwordConfirm!.isEmpty) {
                         return 'Campo obrigatório!!!';
-                      } else if (password.length < 6) {
+                      } else if (passwordConfirm.length < 6) {
                         return 'Senha deve ter ao menos 6 caracteres!!!';
                       }
                       return null;
@@ -132,7 +132,7 @@ class SignUpScreen extends StatelessWidget {
                               }
                               UserService userService = UserService();
                               userService.signUp(
-                                user,
+                                userLocal: user,
                                 onSuccess: () {
                                   Navigator.of(context).pop();
                                 },

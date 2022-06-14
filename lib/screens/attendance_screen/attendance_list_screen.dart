@@ -56,6 +56,8 @@ class _AttendanceListScreenState extends State<AttendanceListScreen> {
                                 }),
                             // Text(nameFun),
                             Text(docSnap[index].get('type').toString()),
+                            Text(docSnap[index].get('date').toString()),
+
                           ],
                         ),
                       ),

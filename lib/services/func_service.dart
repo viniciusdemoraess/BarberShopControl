@@ -19,7 +19,7 @@ class FuncService {
     var docSnapshot = await collection.doc(id).get();
     Map<String, dynamic>? data = docSnapshot.data();
     // return '${data!['area']}';
-    return Future.value(data!['name']);
+    return Future.value(data?['name']);
   }
 
 

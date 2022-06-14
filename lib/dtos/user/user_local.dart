@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class UserLocal {
   String? id;
@@ -20,20 +21,15 @@ class UserLocal {
   UserLocal.fromDocument(DocumentSnapshot doc){
     id = doc.id;
     name = doc.get('name') as String;
-    email = doc.get('email') as String;
-    password = doc.get('password') as String;
-    confirmPassword = doc.get('confirmPassword') as String;    
+    email = doc.get('email') as String;   
   }
 
   DocumentReference get firestoreReference => FirebaseFirestore.instance.doc('users/$id');
 
   Map<String, dynamic> toMap(){
     return <String, dynamic>{
-      'id' : id,
       'name': name,
-      'email': email,
-      'password': password,
-      'confirmPassword': confirmPassword
+      'email': email
     };
   }
 
@@ -47,8 +43,6 @@ class UserLocal {
       id: map['id'],
       name: map['name'],
       email: map['email'],
-      password: map['password'],
-      confirmPassword: map['confirmPassword']
     );
   }
 
