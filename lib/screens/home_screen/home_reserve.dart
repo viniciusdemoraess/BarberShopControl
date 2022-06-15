@@ -23,7 +23,7 @@ class _HomeReserveScreenState extends State<HomeReserveScreen> {
           children: [
             const SizedBox(height: 15),
             const Text(
-              'Minha Agenda',
+              'Meus Horários',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -56,31 +56,60 @@ class _HomeReserveScreenState extends State<HomeReserveScreen> {
                                 borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(5.0),
                                   topRight: Radius.circular(5.0),
-                                  bottomLeft: Radius.circular(5.0),
-                                  bottomRight: Radius.circular(5.0),
+                                  // bottomLeft: Radius.circular(5.0),
+                                  // bottomRight: Radius.circular(5.0),
                                 ),
                               ),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    child: OutlinedButton(
-                                        style: OutlinedButton.styleFrom(
-                                          primary: Colors.blue,
-                                          backgroundColor:
-                                              const Color(0xFFEFF7F6),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AttendanceAddScreen(
-                                                          userLocal: userService
-                                                              .userLocal)));
-                                        },
-                                        child: const Text("Solicitar Reserva")),
-                                  ),
+                                  OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        primary: Colors.blue,
+                                        backgroundColor:
+                                            const Color(0xFFEFF7F6),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AttendanceAddScreen(
+                                                        userLocal: userService
+                                                            .userLocal)));
+                                      },
+                                      child: const Text("Solicitar Serviço")),
                                   const SizedBox(width: 5),
                                 ],
+                              ),
+                            ),
+                            Text('${userService.userLocal?.email}'),
+                            // Text('IsAdmin ? ${userService.userLocal?.admin}'),
+                            Padding(
+                              padding: const EdgeInsets.all(
+                                  7.0),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.blueGrey,
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(4),
+                                    topLeft: Radius.circular(4),
+                                    bottomLeft:Radius.circular(4) ,
+                                    bottomRight: Radius.circular(4),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: const [
+                                      Expanded(child: Text('Funcionary', style: TextStyle(color: Colors.white),)),
+                                      Expanded(child: Text('Serviço', style: TextStyle(color: Colors.white),)),
+                                      Expanded(child: Text('Data', style: TextStyle(color: Colors.white),)),
+                                      Expanded(child: Text('Delete', style: TextStyle(color: Colors.white),)),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                             Expanded(
